@@ -1,0 +1,68 @@
+   +----------------+      +----------------+      +-------------------------+
+   |                |      |                |      |                         |
+   |  User Input    | ---> | run_agent()    | ---> | StateGraph / Agent Nodes|
+   |  (task text)   |      |                |      |                         |
+   +----------------+      +----------------+      +-----------+-------------+
+                                                                |
+                                                                v
+                                                   +-------------------------+
+                                                   |  Planner Node           |
+                                                   |-------------------------|
+                                                   | prompt = f"...task..." |
+                                                   | response = llm.invoke()|
+                                                   +-----------+-------------+
+                                                               |
+                                                               v
+                                                   +-------------------------+
+                                                   | Researcher Node         |
+                                                   |-------------------------|
+                                                   | Uses plan + optional    |
+                                                   | memory context          |
+                                                   | response = llm.invoke()|
+                                                   +-----------+-------------+
+                                                               |
+                                                               v
+                                                   +-------------------------+
+                                                   | Writer Node             |
+                                                   |-------------------------|
+                                                   | Combines research +    |
+                                                   | memory context          |
+                                                   | response = llm.invoke()|
+                                                   +-----------+-------------+
+                                                               |
+                                                               v
+                                                  +--------------------------+
+                                                  |  ChatOpenAI (Python)     |
+                                                  |--------------------------|
+                                                  | Converts prompt to JSON  |
+                                                  | Sends HTTPS request to   |
+                                                  | OpenAI API               |
+                                                  +-----------+--------------+
+                                                              |
+                                                              v
+                                         +------------------------------------+
+                                         | OpenAI API / GPT-4o-mini          |
+                                         |----------------------------------|
+                                         | Processes prompt                  |
+                                         | Generates text output              |
+                                         | Returns JSON response              |
+                                         +----------------+------------------+
+                                                              |
+                                                              v
+                                             +--------------------------+
+                                             | Back to Agent Node       |
+                                             | response.content extracts|
+                                             | the text for the state   |
+                                             +--------------------------+
+                                                              |
+                                                              v
+                                               +-------------------------+
+                                               | run_agent() returns     |
+                                               | final state/output      |
+                                               +-------------------------+
+                                                              |
+                                                              v
+                                                    +----------------+
+                                                    |  CLI or UI      |
+                                                    |  Shows output   |
+                                                    +----------------+

@@ -55,7 +55,7 @@ def planner(state: AgentState) -> AgentState:
     {state['input']}
     """
 
-    response = llm.invoke(prompt).content
+    response = llm.invoke(prompt).content ## network call to OpenAI API
 
     state["plan"] = response
     state["history"].append(f"PLAN:\n{response}")

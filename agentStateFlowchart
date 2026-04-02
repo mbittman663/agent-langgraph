@@ -1,0 +1,68 @@
+┌───────────────────────────┐
+│       User Input          │
+│ "Write a blog post about   │
+│  renewable energy."        │
+└─────────────┬─────────────┘
+              │
+              v
+┌───────────────────────────┐
+│       Initial State        │
+│ state = {                  │
+│   "input": "Write a blog...", │
+│   "plan": "",              │
+│   "research": "",          │
+│   "output": "",            │
+│   "history": []            │
+│ }                          │
+└─────────────┬─────────────┘
+              │
+              v
+┌───────────────────────────┐
+│        Planner Node       │
+│ Prompt: Break task into   │
+│ steps using state['input']│
+│                           │
+│ Updates:                  │
+│ state["plan"] = LLM output│
+│ state["history"].append(plan)│
+└─────────────┬─────────────┘
+              │
+              v
+┌───────────────────────────┐
+│      Researcher Node      │
+│ Uses state["plan"] to     │
+│ gather info (tool/API/memory) │
+│                           │
+│ Updates:                  │
+│ state["research"] = LLM output│
+│ state["history"].append(research)│
+└─────────────┬─────────────┘
+              │
+              v
+┌───────────────────────────┐
+│        Writer Node        │
+│ Uses state["research"] to │
+│ write final structured output │
+│                           │
+│ Updates:                  │
+│ state["output"] = LLM output │
+│ state["history"].append(output) │
+└─────────────┬─────────────┘
+              │
+              v
+┌───────────────────────────┐
+│      Final State          │
+│ state = {                  │
+│   "input": "Write a blog...", │
+│   "plan": "...",           │
+│   "research": "...",       │
+│   "output": "...",         │
+│   "history": ["PLAN:...", "RESEARCH:...", "OUTPUT:..."] │
+│ }                          │
+└───────────────────────────┘
+              │
+              v
+┌───────────────────────────┐
+│ CLI / UI Output           │
+│ print(state["output"])    │
+└───────────────────────────┘

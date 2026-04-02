@@ -13,7 +13,9 @@
 ///// To Run with Streamlit UI /////
 - Open Terminal
 - py -m streamlit run app.py (should open tab in your browser to interact with agents)
+- control C in terminal will exit you from the communication
 
 ///// To Run without Streamlit UI - run & use in terminal /////
 - Open Terminal 
 - py -m main.py (can interact in the terminal)
+- control C in terminal will exit you from the communication

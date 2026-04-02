@@ -1,4 +1,4 @@
-# app.py
+################# Makes agents usable through a Streamlit Interface #################
 
 import streamlit as st
 from main import run_agent  # import your function

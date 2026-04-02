@@ -1,7 +1,14 @@
 from typing import TypedDict, List
 from langgraph.graph import StateGraph
 from langchain.chat_models import ChatOpenAI
+from dotenv import load_dotenv
+import os
 
+# =========================
+# 0. Load environment vars
+# =========================
+
+load_dotenv()  # loads OPENAI_API_KEY from .env
 
 # =========================
 # 1. Define State
